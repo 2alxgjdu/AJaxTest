@@ -2,10 +2,18 @@
 @{
     ViewData["Title"] = "HomeWork";
 }
-@section Style{ }
+@section Style{ 
+<style>
+    ul li {
+        display: table;
+        margin: 0 auto;
+    }
+</style>
+
+}
 <h1>HomeWork</h1>
 <ul id="u2">
-    
+    <li style="margin:auto">地名|地址|有無停車場|電話|開放時間</li>
 </ul>
 
 @section Scripts{
@@ -16,7 +24,7 @@
         const docFOG = document.createDocumentFragment()
         for (let i = 0; i < DATAS.length; i++) {
             const { InfoId, TYWebsite, Name, Toldescribe, Add, Zipcode, Opentime, Px, Py, Website, Parkinginfo, Ticketinfo, Remarks, Tel, Fax, Changetime } = DATAS[i]
-            const txtLi = document.createTextNode(Name + "|" + TYWebsite + "|" + Add + "|" + Tel + "|" + Changetime)
+            const txtLi = document.createTextNode(Name + "|" + Add + "|" + Parkinginfo+ "|" + Tel + "|" + Changetime)
             const eleLi = document.createElement("li")
             eleLi.appendChild(txtLi)
             docFOG.appendChild(eleLi)
