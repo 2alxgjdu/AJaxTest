@@ -1,8 +1,42 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@section Style{
 
+<style>
+
+</style>
+
+}
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">Welcome Ajax</h1>
+    <ul id="u2"> </ul>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+
+
+
+
+@section Scripts{
+
+    <script>
+        var emps = [{ "name": "Tom", "workYears": 3, "salary": 35000 },
+        { "name": "Jack", "workYears": 5, "salary": 40000 },
+        { "name": "Mary", "workYears": 7, "salary": 45000 }];
+
+        const theUL = document.querySelector("#u2")
+        const docFOG = document.createDocumentFragment()
+        for (let i = 0; i < emps.length; i++) {
+            const txtLi = document.createTextNode(emps[i].name)
+            const eleLi = document.createElement("li")
+            eleLi.appendChild(txtLi)
+            docFOG.appendChild(eleLi)
+        }
+        theUL.appendChild(docFOG)
+
+
+    </script>
+
+
+}

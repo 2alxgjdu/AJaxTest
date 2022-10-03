@@ -22,6 +22,14 @@ namespace AJaxTest.Controllers
         {
             return View();
         }
+        public IActionResult First()
+        {
+            return View();
+        }
+        public IActionResult HomeWork()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
         {

@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewData["Title"] = "First";
+}
+
+<h1>First</h1>
+@section STYLE{ }
+
+<div id="div1"></div>
+@section  Scripts{
+    <script>
+        const theDIV = document.querySelector('#div1');
+        //step 1 建立Ajax物件
+        const xhr = new XMLHttpRequest()
+        //step 3 接收資料
+        //鴂定資料有從伺服器端回傳 Load事件表示有回傳
+        xhr.addEventListener("load", () => {
+            //接收文字
+            const data = xhr.responseText
+            //顯示資料
+            theDIV.textContent = data
+        //    theDIV.innerHTML=`<h3>${data}</h3>`
+        }
+        )
+
+
+
+        xhr.open("GET", "/AJAXTEST/Index")
+        xhr.send()
+
+    </script>
+
+
+ }

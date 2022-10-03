@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "HomeWork";
+}
+@section Style{ }
+<h1>HomeWork</h1>
+<ul id="u2">
+    
+</ul>
+
+@section Scripts{
+    <script src="~/js/travel.js"></script>
+    <script>
+
+        const theUL = document.querySelector("#u2")
+        const docFOG = document.createDocumentFragment()
+        for (let i = 0; i < DATAS.length; i++) {
+            const { InfoId, TYWebsite, Name, Toldescribe, Add, Zipcode, Opentime, Px, Py, Website, Parkinginfo, Ticketinfo, Remarks, Tel, Fax, Changetime } = DATAS[i]
+            const txtLi = document.createTextNode(Name + "|" + TYWebsite + "|" + Add + "|" + Tel + "|" + Changetime)
+            const eleLi = document.createElement("li")
+            eleLi.appendChild(txtLi)
+            docFOG.appendChild(eleLi)
+        }
+        theUL.appendChild(docFOG)
+
+
+    </script>
+
+  
+    }
