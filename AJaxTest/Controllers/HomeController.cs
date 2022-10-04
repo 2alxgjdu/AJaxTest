@@ -30,6 +30,10 @@ namespace AJaxTest.Controllers
         {
             return View();
         }
+        public IActionResult HomeWorkday2()
+        {
+            return View();
+        }
         public IActionResult FirstGet()
         {
             return View();

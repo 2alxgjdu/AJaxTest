@@ -9,6 +9,12 @@ namespace AJaxTest.Controllers
 {
     public class AJAXTESTController : Controller
     {
+        private readonly DemoContext _context;
+
+        public AJAXTESTController(DemoContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index(string keyword)
         {
             if (String.IsNullOrEmpty(keyword))
@@ -27,7 +33,24 @@ namespace AJaxTest.Controllers
         }
         public IActionResult Register(Member member)
         {
-            return Content(member.Name, "text/plain");
+   
+                return Content(member.Name, "text/plain");
+
+
+        }
+        public IActionResult HomeWorkday2(Member member)
+        {
+
+            Member x = _context.Members.FirstOrDefault(p => p.Name == member.Name);
+            if (x ==null)
+            {
+                return Content("重複了啦!!!!!", "text/plain");
+
+            }
+            else
+                return Content("姓名並無重複", "text/plain", System.Text.Encoding.UTF8);
+
+
         }
     }
 }

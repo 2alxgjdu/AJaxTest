@@ -157,5 +157,21 @@ namespace AJaxTest.Controllers
         
         
         }
+
+        public IActionResult HomeWorkcheckname(Member member)
+        {
+
+            Member x = _context.Members.FirstOrDefault(p => p.Name == member.Name);
+            if (x == null)
+            {
+                return Content("姓名並無重複", "text/plain", System.Text.Encoding.UTF8);
+  
+
+            }
+            else
+                return Content("重複了啦!!!!!", "text/plain", System.Text.Encoding.UTF8);
+
+
+        }
     }
 }

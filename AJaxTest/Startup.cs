@@ -59,7 +59,7 @@ namespace AJaxTest
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=AJAXTEST}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=HomeWorkday2}/{id?}");
             });
         }
     }
