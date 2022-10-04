@@ -30,8 +30,19 @@ namespace AJaxTest.Controllers
         {
             return View();
         }
-
+        public IActionResult FirstGet()
+        {
+            return View();
+        }
+        public IActionResult AjaxEvent()
+        {
+            return View();
+        }
         public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult Register()
         {
             return View();
         }

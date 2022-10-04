@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewData["Title"] = "AjaxEvent";
+}
+
+<h1>AjaxEvent</h1>
+<button class="btn btn-primary"  id="start">開始</button>
+<button class="btn btn-primary" id="stop">停止</button>
+<img id="圖片" style="display:none" src="~/loading.gif" />
+<div id="div1"></div>
+
+
+@section Scripts{
+
+    <script>
+        const 按鈕開始 = document.querySelector("#start")
+        const 按鈕停止 = document.querySelector("#stop")
+        const imgLoading = document.querySelector("#圖片")
+        const divload = document.querySelector("#div1")
+        const xhr = new XMLHttpRequest()
+
+            按鈕停止.addEventListener("click", () => {
+            xhr.abort();
+        })
+        按鈕開始.addEventListener("click", () => {
+            
+            xhr.addEventListener("loadstart", () => {
+                console.log("開始~~")
+                按鈕開始.textContent = "跑狗~~~~"
+                按鈕開始.setAttribute("disabled", "disabled")
+                imgLoading.style.display = "inline"
+            })
+            xhr.addEventListener("loadend", () => {
+                console.log("結束~~")
+                按鈕開始.textContent = "再啟動~~"
+                按鈕開始.removeAttribute("disabled")
+                imgLoading.style.display = "none"
+            })
+            xhr.addEventListener("timeout", () => {
+                divload.textContent="伺服器忙線中"
+            })
+            xhr.addEventListener("abort", () => {
+                divload.textContent = "你暫停了"
+           })
+            console.log("loading......")
+            xhr.open("GET", "@Url.Content("~/AJAXTEST/wait")")
+            xhr.timeout = 300000
+            xhr.send()
+           
+        })
+
+    </script>
+
+
+
+
+}

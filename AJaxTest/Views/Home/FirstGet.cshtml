@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "FirstGet";
+}
+
+<h1>FirstGet</h1>
+
+<input type="text" id="texts" />
+<button id="btn">按下去</button>
+<div id="div1" class=""></div>
+@section Scripts{ 
+    <script>
+        const 按鈕 = document.querySelector("#btn")
+        const txtbox = document.querySelector("#texts")
+        const theDIV = document.querySelector('#div1');
+        const xhr = new XMLHttpRequest()
+        按鈕.addEventListener("click", () => {
+            console.log(txtbox.value)
+
+
+
+
+            const url = "@Url.Content("~/AJAXTEST/Index")"
+            const params = `?keyword=${txtbox.value}`
+
+            xhr.open("GET", url+params)
+            xhr.send()
+            xhr.addEventListener("load", () => {
+                const data = xhr.responseText
+                theDIV.textContent = data
+
+
+            })
+
+        })
+
+    </script>
+}
