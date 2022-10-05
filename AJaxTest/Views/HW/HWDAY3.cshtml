@@ -20,8 +20,8 @@
 
 
         selCity.addEventListener("change", () => {
-            removeOptions(selSite)
-        let cityvalue = selCity.options[selCity.selectedIndex].value
+            selSite.options.length = 0
+            let cityvalue = selCity.options[selCity.selectedIndex].value
             async function loadsite() {
                 let response = await fetch(siteurl + `?city=${cityvalue}`)
                 console.log(cityvalue)
@@ -36,7 +36,9 @@
 
         })
         selSite.addEventListener("change", () => {
-            removeOptions(selRoad)
+            selRoad.options.length = 0
+
+
             let sitevalue = selSite.options[selSite.selectedIndex].value
             async function loadroad() {
                 let response = await fetch(roadurl + `?site=${sitevalue}`)
