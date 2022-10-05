@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewData["Title"] = "Address";
+}
+<select id="select1">
+</select>
+<select id="select2">
+</select>
+<select id="select3">
+</select>
+@section Scripts{
+    <script>
+        const selCity = document.querySelector("#select1")
+        const selSite = document.querySelector("#select2")
+        const selRoad = document.querySelector("#select3")
+        const promise = new Promise((resolve, reject) => {
+            //非同步程式碼執行處
+            const num = Math.random
+
+        })
+
+    //option... 會產生 Options
+    //step1
+    const xhr = new XMLHttpRequest()
+        //step3
+        selCity.addEventListener("change", () => {
+            console.log("a")
+            const cities = selCity.options[selCity.selectedIndex].value
+            const xhrs = new XMLHttpRequest()
+            xhrs.addEventListener("load", () => {
+                console.log("b")
+                      const datas = JSON.parse(xhrs.responseText)
+                      datas.forEach(Site => {
+                                 const opt = new Option(Site, Site)
+                                    selSite.options.add(opt)
+                          })
+                      })
+             const url = "@Url.Content("~/AJAXTEST/Site")"
+             const params = `?city=${cities}`
+             xhrs.open("GET", url+params)
+             xhrs.send()
+        })
+        selSite.addEventListener("change", () => {
+                    console.log(selSite.options[selSite.selectedIndex].value)
+                    const sites = selSite.options[selSite.selectedIndex].value
+                     const xhr2 = new XMLHttpRequest()
+                        xhr2.addEventListener("load", () => {
+                            const datas = JSON.parse(xhr2.responseText)
+                            datas.forEach(Road => {
+                                 const opt = new Option(Road, Road)
+                                 selRoad.options.add(opt)
+                            })
+                        })
+                        const url = "@Url.Content("~/AJAXTEST/Road")"
+                        const params = `?site=${sites}`
+                        xhr2.open("GET", url+params)
+                        xhr2.send()
+                })
+        xhr.addEventListener("load", () => {
+        //Server傳回來的JSON是字串
+        //要轉成JSON物件才能使用 JSON.parse("JSON字串")  JSON.stringify(JSON物件)
+             const datas = JSON.parse(xhr.responseText)
+        //console.log(data.length)
+        //console.log(JSON.parse(data).length)
+        //step4 讀取資料
+        /*  for (let i = 0, max = datas.length; i < max;i++)*/
+            datas.forEach(city => {
+            //step5 顯示資料 <ul><li> <table><td>......<div>....
+                const opt = new Option(city, city)
+                selCity.options.add(opt)
+            })
+        })
+    //step 2
+    xhr.open("GET", "@Url.Content("~/AJAXTEST/City")")
+    xhr.send()
+    </script>
+}

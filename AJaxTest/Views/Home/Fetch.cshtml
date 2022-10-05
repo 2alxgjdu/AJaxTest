@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewData["Title"] = "Fetch";
+}
+<div id="div1"></div>
+<img id="img1"/>
+<select id="select1">
+
+
+</select>
+@section Scripts{ 
+    <script>
+        const img01 = document.querySelector("#img1")
+        const div1 = document.querySelector("#div1")
+        const selCity = document.querySelector("#select1")
+
+
+
+        fetch("@Url.Content("~/AJAXTEST/index")")
+            .then(response => { return response.text() })
+            .then(data => div1.innerHTML=data)
+            .catch(error => console.log(error))
+
+        fetch("@Url.Content("~/members/showphoto/0")")
+            .then(response => response.blob())
+            .then(data => {
+                img01.src = URL.createObjectURL(data)
+            })
+
+
+        async function loadcity() {
+            let response = await fetch("@Url.Content("~/AJAXTEST/City")")
+            let datas = await response.json()
+            
+                datas.forEach(city => {
+                    const opt = new Option(city, city)
+                    selCity.options.add(opt)
+                })
+            }
+        loadcity()
+
+
+        @*fetch("@Url.Content("~/AJAXTEST/City")")
+            .then(response => response.json())
+            .then(datas => {
+                datas.forEach(city => {
+                    const opt = new Option(city, city)
+                    selCity.options.add(opt)
+                })
+            })*@
+
+
+
+
+    </script>
+
+
+
+
+
+}

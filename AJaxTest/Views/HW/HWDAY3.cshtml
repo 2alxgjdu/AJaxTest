@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewData["Title"] = "HWDAY3";
+}
+<select id="select1">
+</select>
+<select id="select2">
+</select>
+<select id="select3">
+</select>
+@section Scripts{
+    <script>
+        const selCity = document.querySelector("#select1")
+        const selSite = document.querySelector("#select2")
+        const selRoad = document.querySelector("#select3")
+        const cityUrl = "@Url.Content("~/AJAXTEST/City")"
+        const siteurl = "@Url.Content("~/AJAXTEST/Site")"
+        const roadurl = "@Url.Content("~/AJAXTEST/Road")"
+
+
+
+        selCity.addEventListener("change", () => {
+            removeOptions(selSite)
+        let cityvalue = selCity.options[selCity.selectedIndex].value
+            async function loadsite() {
+                let response = await fetch(siteurl + `?city=${cityvalue}`)
+                console.log(cityvalue)
+                let datas = await response.json()
+
+                datas.forEach(site => {
+                    const opt = new Option(site, site)
+                    selSite.options.add(opt)
+                })
+            }
+            loadsite()
+
+        })
+        selSite.addEventListener("change", () => {
+            removeOptions(selRoad)
+            let sitevalue = selSite.options[selSite.selectedIndex].value
+            async function loadroad() {
+                let response = await fetch(roadurl + `?site=${sitevalue}`)
+            
+                let datas = await response.json()
+
+                datas.forEach(road => {
+                    const opt = new Option(road, road)
+                    selRoad .options.add(opt)
+                })
+            }
+            loadroad()
+
+        })
+        async function loadcity() {
+            let response = await fetch("@Url.Content("~/AJAXTEST/City")")
+            let datas = await response.json()
+
+                datas.forEach(city => {
+                    const opt = new Option(city, city)
+                    selCity.options.add(opt)
+                })
+        }
+
+        loadcity()
+        async function removeOptions(selectElement) {
+            let i, L = selectElement.options.length - 1;
+            for (i = L; i >= 0; i--) {
+                selectElement.remove(i);
+            }
+        }
+    </script>
+}

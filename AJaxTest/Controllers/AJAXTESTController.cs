@@ -1,20 +1,30 @@
 ﻿using AJaxTest.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace AJaxTest.Controllers
 {
     public class AJAXTESTController : Controller
     {
+        private readonly IWebHostEnvironment _host;
         private readonly DemoContext _context;
-
-        public AJAXTESTController(DemoContext context)
+        public AJAXTESTController(IWebHostEnvironment host,DemoContext context)
         {
+           
             _context = context;
+            _host = host;
+        
         }
+       
+
+
         public IActionResult Index(string keyword)
         {
             if (String.IsNullOrEmpty(keyword))
@@ -31,14 +41,33 @@ namespace AJaxTest.Controllers
             System.Threading.Thread.Sleep(10000);
             return Content("哈樓你好嗎","text/plain");
         }
-        public IActionResult Register(Member member)
+        public IActionResult Register(Member member, IFormFile File1)
         {
-   
-                return Content(member.Name, "text/plain");
+            //string info = $" {File1.Name}-{File1.ContentType}-{File1.Length}";
+            //string info = _host.WebRootPath;
+            //string info = _host.ContentRootPath;
+            string filePath = Path.Combine(_host.WebRootPath,"uploads",File1.FileName);
+
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                File1.CopyTo(fileStream);
+            }
+            byte[] imgByte = null;
+            using (var memoryStream=new MemoryStream())
+            {
+                File1.CopyTo(memoryStream);
+                imgByte = memoryStream.ToArray();
+            }
+            member.FileName = File1.FileName;
+            member.FileData = imgByte;
+            _context.Members.Add(member);
+            _context.SaveChanges();
+                return Content(filePath, "text/plain");
 
 
         }
-        public IActionResult HomeWorkday2(Member member)
+
+        public IActionResult HomeWorkday2(Member member,IFormFile File1)
         {
 
             Member x = _context.Members.FirstOrDefault(p => p.Name == member.Name);
@@ -51,6 +80,23 @@ namespace AJaxTest.Controllers
                 return Content("姓名並無重複", "text/plain", System.Text.Encoding.UTF8);
 
 
+        }
+
+
+        public IActionResult City()
+        {
+            var cities=_context.Addresses.Select(a => a.City).Distinct();
+            return Json(cities);
+        }
+        public IActionResult Site(string city)
+        {
+            var sites = _context.Addresses.Where(a => a.City == city).Select(a => a.SiteId).Distinct();
+            return Json(sites);
+        }
+        public IActionResult Road(string site)
+        {
+            var roads = _context.Addresses.Where(a => a.SiteId == site).Select(a => a.Road).Distinct();
+            return Json(roads);
         }
     }
 }

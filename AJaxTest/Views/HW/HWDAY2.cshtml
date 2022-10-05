@@ -1,18 +1,19 @@
 ﻿
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "HWDAY2";
 }
 
-<h1>Register</h1>
+<h1>HWDAY2</h1>
+
 
 <div class="row">
     <div class="col-3"></div>
     <div class="col-6">
-        <form method="post" name="userInfo" action="~/AJAXTEST/Register" enctype="multipart/form-data">
+        <form method="post" name="userInfo" action="~/AJAXTEST/Register">
             <div class="form-group">
                 <label for="InputName">姓名</label>
                 <input type="text" class="form-control" id="InputName" name="Name">
-                <small id="emailHelp" class="form-text text-muted"></small>
+                <small id="emailHelp" class="form-text text-muted">55</small>
             </div>
             <div class="form-group">
                 <label for="InputEmail">電子郵件</label>
@@ -31,14 +32,30 @@
         <div id="div1" style="background-color:aqua"></div>
     </div>
     <div class="col-3"></div>
-    
+
 </div>
 
 @section Scripts{
-<script>
+    <script>
 
     const btn = document.querySelector('#送出')
-    const divooo = document.querySelector('#div1')
+        const divooo = document.querySelector('#div1')
+        const smname = document.querySelector('#emailHelp')
+        const txtname = document.querySelector('#InputName')
+
+
+        txtname.addEventListener("keyup", () => {
+            const xhr = new XMLHttpRequest();
+            const formdata = new FormData(document.userInfo);
+
+            xhr.addEventListener("load", () => {
+                const data = xhr.responseText
+                smname.textContent = data
+
+            })
+            xhr.open("POST"," @Url.Content("~/Members/HomeWorkcheckname")" )
+            xhr.send(formdata)
+        })
 
 
 
@@ -48,24 +65,16 @@
 
         const formdata = new FormData(document.userInfo);
 
-        //const xhr = new XMLHttpRequest();
+        const xhr = new XMLHttpRequest();
 
-        //xhr.addEventListener("load", () => {
-        //    const data = xhr.responseText
-        //    divooo.textContent = data
-
-
-        //})
-        //xhr.open("POST", document.userInfo.action)
-        //xhr.send(formdata)
-
-        fetch(document.userInfo.action, {
-            method: "POST",
-            body: formdata
-        }).then(response => response.text())
-            .then(data => divooo.textContent = data)
+        xhr.addEventListener("load", () => {
+            const data = xhr.responseText
+            divooo.textContent = data
 
 
+        })
+        xhr.open("POST", document.userInfo.action)
+        xhr.send(formdata)
 
     })
 
@@ -73,7 +82,10 @@
 
 
 
-</script>
 
 
- }
+
+    </script>
+
+
+}

@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewData["Title"] = "HWDAY1";
+}
+
+@section Style{
+    <style>
+        ul li {
+            display: table;
+            margin: 0 auto;
+        }
+    </style>
+
+}
+<h1>HomeWork</h1>
+@*<ul id="u2">
+        <li style="margin:auto">地名|地址|有無停車場|電話|開放時間</li>
+    </ul>*@
+<div class="card-columns"></div>
+
+
+@section Scripts{
+    <script src="~/js/travel.js"></script>
+    <script>
+
+        //const theUL = document.querySelector("#u2")
+        //const docFOG = document.createDocumentFragment()
+        //for (let i = 0; i < DATAS.length; i++) {
+        //    const { InfoId, TYWebsite, Name, Toldescribe, Add, Zipcode, Opentime, Px, Py, Website, Parkinginfo, Ticketinfo, Remarks, Tel, Fax, Changetime } = DATAS[i]
+        //    const txtLi = document.createTextNode(Name + "|" + Add + "|" + Parkinginfo+ "|" + Tel + "|" + Changetime)
+        //    const eleLi = document.createElement("li")
+        //    eleLi.appendChild(txtLi)
+        //    docFOG.appendChild(eleLi)
+        //}
+        //theUL.appendChild(docFOG)
+
+        let htmlDatas = DATAS.map(datas => {
+
+            let { Name, Toldescribe, Add, Changetime } = datas
+            return (
+                `
+                    <div class="card" style="width: 18rem;">
+                          <div class="card-body">
+                                <h5 class="card-title">${Name}</h5>
+                                 <p class="card-text"> ${Toldescribe}</p>
+                                 <p class="card-text"> ${Add}</p>
+                                 <p class="card-text"> ${Changetime}</p>
+                         </div>
+                    </div>
+
+                    `
+            )
+        })
+        document.querySelector(".card-columns").innerHTML = htmlDatas.join("")
+
+    </script>
+
+
+}
