@@ -31,23 +31,19 @@ namespace AJaxTest.Controllers
             {
                 return NotFound();
             }
-
             var member = await _context.Members
                 .FirstOrDefaultAsync(m => m.MemberId == id);
             if (member == null)
             {
                 return NotFound();
             }
-
             return View(member);
         }
-
         // GET: Members/Create
         public IActionResult Create()
         {
             return View();
         }
-
         // POST: Members/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -63,7 +59,6 @@ namespace AJaxTest.Controllers
             }
             return View(member);
         }
-
         // GET: Members/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -79,7 +74,6 @@ namespace AJaxTest.Controllers
             }
             return View(member);
         }
-
         // POST: Members/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -91,7 +85,6 @@ namespace AJaxTest.Controllers
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
                 try
@@ -114,7 +107,6 @@ namespace AJaxTest.Controllers
             }
             return View(member);
         }
-
         // GET: Members/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -122,17 +114,14 @@ namespace AJaxTest.Controllers
             {
                 return NotFound();
             }
-
             var member = await _context.Members
                 .FirstOrDefaultAsync(m => m.MemberId == id);
             if (member == null)
             {
                 return NotFound();
             }
-
             return View(member);
         }
-
         // POST: Members/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -143,7 +132,6 @@ namespace AJaxTest.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         private bool MemberExists(int id)
         {
             return _context.Members.Any(e => e.MemberId == id);
@@ -152,26 +140,18 @@ namespace AJaxTest.Controllers
         {
             Member member = _context.Members.Find(id);
             byte[] content = member.FileData;
-            return File(content,"image/jpeg" );         ;
-        
-        
-        
+            return File(content,"image/jpeg" );                            
         }
 
         public IActionResult HomeWorkcheckname(Member member)
         {
-
             Member x = _context.Members.FirstOrDefault(p => p.Name == member.Name);
             if (x == null)
             {
                 return Content("姓名並無重複", "text/plain", System.Text.Encoding.UTF8);
-  
-
             }
             else
                 return Content("重複了啦!!!!!", "text/plain", System.Text.Encoding.UTF8);
-
-
         }
     }
 }

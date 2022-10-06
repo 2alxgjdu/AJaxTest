@@ -26,6 +26,10 @@ namespace AJaxTest.Controllers
         {
             return View();
         }
+        public IActionResult AutoComplete()
+        {
+            return View();
+        }
         public IActionResult HomeWork()
         {
             return View();
@@ -62,7 +66,10 @@ namespace AJaxTest.Controllers
         {
             return View();
         }
-
+        public IActionResult History()
+        {
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

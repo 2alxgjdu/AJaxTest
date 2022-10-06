@@ -44,7 +44,7 @@
         const txtname = document.querySelector('#InputName')
 
 
-        txtname.addEventListener("keyup", () => {
+        txtname.addEventListener("blur", () => {
             const xhr = new XMLHttpRequest();
             const formdata = new FormData(document.userInfo);
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AJaxTest.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,11 @@ namespace AJaxTest.Controllers
 {
     public class HWController : Controller
     {
+
+        public IActionResult HWDAY4()
+        {
+            return View();
+        }
         public IActionResult HWDAY3()
         {
             return View();

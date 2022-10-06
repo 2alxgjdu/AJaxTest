@@ -37,14 +37,10 @@
         })
         selSite.addEventListener("change", () => {
             selRoad.options.length = 0
-
-
             let sitevalue = selSite.options[selSite.selectedIndex].value
             async function loadroad() {
-                let response = await fetch(roadurl + `?site=${sitevalue}`)
-            
+                let response = await fetch(roadurl + `?site=${sitevalue}`)           
                 let datas = await response.json()
-
                 datas.forEach(road => {
                     const opt = new Option(road, road)
                     selRoad .options.add(opt)
@@ -56,7 +52,6 @@
         async function loadcity() {
             let response = await fetch("@Url.Content("~/AJAXTEST/City")")
             let datas = await response.json()
-
                 datas.forEach(city => {
                     const opt = new Option(city, city)
                     selCity.options.add(opt)

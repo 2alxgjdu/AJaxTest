@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "HWDAY4";
+}
+
+<h1>HWDAY4</h1>
+
+    <div class="m-auto w-50">
+        <input type="text" id="pruduct" class="w-100" />
+        <div class="list-group mt-1 d-none">
+            <button type="button" class="list-group-item list-group-item-action active" aria-current="true">
+                The current button
+            </button>
+        </div>
+    </div>
+    @section Scripts{
+
+            <script src="~/js/travel.js"></script>
+            <script>
+                //keydown keyup keypress input
+                const inputText = document.querySelector("#pruduct")
+                const listData = document.querySelector(".list-group")
+                //listData.style.display = "none"
+                inputText.addEventListener("input", async function ()  {
+                    const keyword = inputText.value;
+                  /*  console.log(keyword)*/
+                    listData.style.display = "inline"
+                    let response  = await fetch("@Url.Content("~/AJAXTEST/ptsname")" + `?keyword=${keyword}`);
+                    let data = await response.json();
+                    let str = "";
+                    data.forEach(i => {
+                        str += `<button type="button" class="list-group-item list-group-item-action" aria-current="true" onclick="SelectKeyword(event)">${i}</button >`;
+                    });
+                    listData.innerHTML = str;
+                    listData.classList.remove("d-none");
+                })
+                function SelectKeyword(event) {
+                    inputText.value = event.target.innerHTML;
+                    listData.classList.add("d-none");
+                }
+            </script>
+
+        }
+

@@ -15,14 +15,15 @@ namespace AJaxTest.Controllers
     {
         private readonly IWebHostEnvironment _host;
         private readonly DemoContext _context;
-        public AJAXTESTController(IWebHostEnvironment host,DemoContext context)
+        private readonly NorthwindContext _northwind;
+        public AJAXTESTController(IWebHostEnvironment host,DemoContext context, NorthwindContext northwind)
         {
            
             _context = context;
             _host = host;
-        
+            _northwind = northwind;
         }
-       
+
 
 
         public IActionResult Index(string keyword)
@@ -98,5 +99,12 @@ namespace AJaxTest.Controllers
             var roads = _context.Addresses.Where(a => a.SiteId == site).Select(a => a.Road).Distinct();
             return Json(roads);
         }
+        public IActionResult ptsname(string keyword)
+        {
+            var name = _northwind.Products.Where(i => i.ProductName.Contains(keyword)).Select(i => i.ProductName);
+            return Json(name);
+          
+        }
+
     }
 }
